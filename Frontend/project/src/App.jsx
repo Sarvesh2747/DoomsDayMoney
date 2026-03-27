@@ -15,12 +15,13 @@
 
 import { useState } from "react";
 import { TransactionProvider } from "./context/TransactionContext";
+import HomePage           from "./pages/HomePage";
 import AddFilePage        from "./pages/AddFilePage";
 import GraphPage from "./pages/GraphPage";
 import ShowDetailsPage    from "./pages/Showdetailspage";
 
 export default function App() {
-  const [page, setPage]               = useState("addfile"); // "addfile" | "graph" | "details"
+  const [page, setPage]               = useState("home"); // "home" | "addfile" | "graph" | "details"
   const [selectedIds, setSelectedIds] = useState(new Set());
 
   function navigate(target) {
@@ -29,6 +30,9 @@ export default function App() {
 
   return (
     <TransactionProvider>
+      {page === "home" && (
+        <HomePage onNavigate={navigate} />
+      )}
       {page === "addfile" && (
         <AddFilePage onNavigate={navigate} />
       )}

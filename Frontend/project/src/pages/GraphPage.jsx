@@ -15,6 +15,7 @@
 
 import { useEffect, useRef, useState, useMemo } from "react";
 import { useTransactions } from "../hooks/useTransactions";
+import { ArrowLeft } from "lucide-react";
 import Button from "../components/Button";
 
 // ─── Physics constants (D3 handles forces now — these are unused) ─────────────
@@ -671,16 +672,56 @@ export default function GraphPage({ onNavigate, onSelectionChange }) {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", height: "100vh", overflow: "hidden", background: "white", fontFamily: "'Fira Code', monospace" }}>
+    <div style={{ display: "flex", flexDirection: "column", height: "100vh", overflow: "hidden", backgroundColor: "#05050a", fontFamily: "system-ui, -apple-system, sans-serif", color: "#fff", position: "relative" }}>
+      {/* ── PEAK UI BACKGROUND ELEMENTS ── */}
+      <style>{`
+        html, body, #root { margin: 0; padding: 0; background: #05050a; width: 100%; height: 100%; overflow: hidden; }
+        @keyframes orbDrift1 {
+          0% { transform: translate(0, 0) scale(1); }
+          33% { transform: translate(15vw, 15vh) scale(1.1); }
+          66% { transform: translate(-10vw, 20vh) scale(0.9); }
+          100% { transform: translate(0, 0) scale(1); }
+        }
+        @keyframes orbDrift2 {
+          0% { transform: translate(0, 0) scale(1); }
+          33% { transform: translate(-20vw, -10vh) scale(1.2); }
+          66% { transform: translate(15vw, -25vh) scale(0.8); }
+          100% { transform: translate(0, 0) scale(1); }
+        }
+        .cinematic-grain {
+          position: absolute;
+          top: 0; left: 0; right: 0; bottom: 0;
+          background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox=\"0 0 200 200\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cfilter id=\"noiseFilter\"%3E%3CfeTurbulence type=\"fractalNoise\" baseFrequency=\"0.9\" numOctaves=\"3\" stitchTiles=\"stitch\"/%3E%3C/filter%3E%3Crect width=\"100%25\" height=\"100%25\" filter=\"url(%23noiseFilter)\"/%3E%3C/svg%3E');
+          opacity: 0.05; mix-blend-mode: color-dodge; pointer-events: none; z-index: 1;
+        }
+        .peak-glass-btn {
+          position: relative; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(16px); color: rgba(255, 255, 255, 0.9); font-weight: 500;
+          padding: 8px 16px; border-radius: 8px; cursor: pointer; transition: all 0.3s;
+          box-shadow: 0 4px 15px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255, 255, 255, 0.05); font-size: 11px; text-transform: uppercase;
+        }
+        .peak-glass-btn:hover {
+          background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.3); transform: translateY(-2px);
+          box-shadow: 0 8px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2); color: #fff;
+        }
+      `}</style>
+      <div style={{ position: "absolute", top: "20%", left: "30%", width: "60vw", height: "60vw", background: "radial-gradient(circle, rgba(147,51,234,0.1) 0%, rgba(0,0,0,0) 70%)", animation: "orbDrift1 25s ease-in-out infinite alternate", pointerEvents: "none", zIndex: 0 }} />
+      <div style={{ position: "absolute", bottom: "-10%", right: "-10%", width: "50vw", height: "50vw", background: "radial-gradient(circle, rgba(236,72,153,0.08) 0%, rgba(0,0,0,0) 70%)", animation: "orbDrift2 30s ease-in-out infinite alternate", pointerEvents: "none", zIndex: 0 }} />
+      <div className="cinematic-grain" />
 
       {/* ══ HEADER ══════════════════════════════════════════════════════════ */}
-      <header style={{ height: 54, flexShrink: 0, background: "#14532d", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 22px", borderBottom: "1px solid #166534" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <div style={{ width: 30, height: 30, borderRadius: 7, background: "#4ade80", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: 10, color: "#14532d" }}>FE</div>
-          <span style={{ color: "white", fontWeight: 700, fontSize: 12, letterSpacing: "0.1em" }}>FORENSICS ENGINE</span>
-          <span style={{ color: "#166534" }}>·</span>
-          <span style={{ color: "#4ade80", fontSize: 10, letterSpacing: "0.08em" }}>TRANSACTION GRAPH</span>
-          <div style={{ display: "flex", gap: 6, marginLeft: 8 }}>
+      <header style={{ height: 60, flexShrink: 0, background: "rgba(10, 10, 12, 0.6)", backdropFilter: "blur(24px) saturate(180%)", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 30px", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", zIndex: 10, boxShadow: "0 4px 30px rgba(0, 0, 0, 0.3)" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+          <div onClick={() => onNavigate("addfile")} style={{ display: "flex", alignItems: "center", cursor: "pointer", marginRight: "8px", color: "rgba(255,255,255,0.7)", transition: "color 0.2s" }} onMouseEnter={e => e.currentTarget.style.color="white"} onMouseLeave={e => e.currentTarget.style.color="rgba(255,255,255,0.7)"}>
+             <ArrowLeft size={24} />
+          </div>
+          <div onClick={() => onNavigate("addfile")} style={{ display: "flex", alignItems: "center", cursor: "pointer" }}>
+            <div style={{ width: 34, height: 34, borderRadius: 10, background: "linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.02))", border: "1px solid rgba(255,255,255,0.3)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: 18, color: "#fff", boxShadow: "0 0 15px rgba(255,255,255,0.2), inset 0 1px 0 rgba(255,255,255,0.6)", textShadow: "0 0 10px rgba(255,255,255,0.6)" }}>D</div>
+            <span style={{ fontWeight: 900, fontSize: 18, letterSpacing: "0.25em", textTransform: "uppercase", background: "linear-gradient(to bottom, #ffffff 30%, #555555 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 8px rgba(255,255,255,0.4))", marginLeft: 8 }}>DOOMSDAY</span>
+          </div>
+          <span style={{ color: "rgba(255,255,255,0.2)", margin: "0 8px" }}>|</span>
+          <span style={{ fontWeight: 500, fontSize: 11, letterSpacing: "0.15em", color: "rgba(255,255,255,0.5)" }}>NETWORK GRAPH</span>
+          <div style={{ display: "flex", gap: 6, marginLeft: 16 }}>
             <div style={{ background: "#7f1d1d", border: "1px solid #ef4444", borderRadius: 6, padding: "3px 9px", display: "flex", alignItems: "center", gap: 5 }}>
               <span style={{ fontSize: 9, color: "#ef4444" }}>⚠</span>
               <span style={{ fontSize: 9, fontWeight: 700, color: "#fca5a5" }}>{totalFlags} SUSPICIOUS</span>
@@ -700,20 +741,20 @@ export default function GraphPage({ onNavigate, onSelectionChange }) {
             <div style={{ width: 7, height: 7, borderRadius: "50%", background: hasData ? "#4ade80" : "#166534", boxShadow: hasData ? "0 0 8px #4ade80" : "none" }} />
             <span style={{ color: hasData ? "#4ade80" : "#166534", fontSize: 10 }}>{hasData ? "ACTIVE" : "IDLE"}</span>
           </div>
-          {fraudData && <Button outline success rounded onClick={downloadJSON}>Download JSON</Button>}
-          <Button outline success rounded onClick={() => onNavigate("details")}>Show Details</Button>
-          <Button outline secondary rounded onClick={() => onNavigate("addfile")}>Add File</Button>
+          {fraudData && <button className="peak-glass-btn" onClick={downloadJSON}>Download JSON</button>}
+          <button className="peak-glass-btn" onClick={() => onNavigate("details")}>Show Details</button>
+          <button className="peak-glass-btn" onClick={() => onNavigate("addfile")} style={{ background: "transparent", border: "1px solid rgba(255,255,255,0.2)" }}>Add File</button>
         </div>
       </header>
 
       {/* ══ BODY ════════════════════════════════════════════════════════════ */}
-      <div style={{ flex: 1, display: "flex", overflow: "hidden" }}>
+      <div style={{ flex: 1, display: "flex", overflow: "hidden", position: "relative", zIndex: 10 }}>
 
         {/* ── LEFT SIDEBAR ─────────────────────────────────────────────── */}
-        <aside style={{ width: 224, flexShrink: 0, borderRight: "1px solid #dcfce7", background: "#f0fdf4", display: "flex", flexDirection: "column", overflow: "hidden" }}>
+        <aside style={{ width: 280, flexShrink: 0, borderRight: "1px solid rgba(255,255,255,0.08)", background: "rgba(10, 10, 15, 0.4)", backdropFilter: "blur(20px)", display: "flex", flexDirection: "column", overflow: "hidden" }}>
 
           {/* Upload zone */}
-          <div style={{ padding: 14, borderBottom: "1px solid #dcfce7", flexShrink: 0 }}>
+          <div style={{ padding: 20, borderBottom: "1px solid rgba(255,255,255,0.08)", flexShrink: 0 }}>
             <p style={{ fontSize: 9, letterSpacing: "0.18em", color: "#15803d", marginBottom: 9, textTransform: "uppercase" }}>Data Source</p>
             <div
               onClick={() => fileRef.current?.click()}
@@ -797,8 +838,8 @@ export default function GraphPage({ onNavigate, onSelectionChange }) {
         </aside>
 
         {/* ── CANVAS ───────────────────────────────────────────────────── */}
-        <main ref={wrapperRef} style={{ flex: 1, position: "relative", overflow: "hidden", background: "white" }}>
-          <div style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "radial-gradient(#bbf7d0 1px, transparent 1px)", backgroundSize: "26px 26px" }} />
+        <main ref={wrapperRef} style={{ flex: 1, position: "relative", overflow: "hidden", background: "transparent" }}>
+          <div style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
 
           {/* Zoom controls */}
           {hasData && (
