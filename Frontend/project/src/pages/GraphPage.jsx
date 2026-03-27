@@ -672,78 +672,57 @@ export default function GraphPage({ onNavigate, onSelectionChange }) {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", height: "100vh", overflow: "hidden", backgroundColor: "#05050a", fontFamily: "system-ui, -apple-system, sans-serif", color: "#fff", position: "relative" }}>
+    <div style={{ display: "flex", flexDirection: "column", height: "100vh", overflow: "hidden", backgroundColor: "#ffffff", fontFamily: "system-ui, -apple-system, sans-serif", color: "#111", position: "relative" }}>
       {/* ── PEAK UI BACKGROUND ELEMENTS ── */}
       <style>{`
-        html, body, #root { margin: 0; padding: 0; background: #05050a; width: 100%; height: 100%; overflow: hidden; }
-        @keyframes orbDrift1 {
-          0% { transform: translate(0, 0) scale(1); }
-          33% { transform: translate(15vw, 15vh) scale(1.1); }
-          66% { transform: translate(-10vw, 20vh) scale(0.9); }
-          100% { transform: translate(0, 0) scale(1); }
-        }
-        @keyframes orbDrift2 {
-          0% { transform: translate(0, 0) scale(1); }
-          33% { transform: translate(-20vw, -10vh) scale(1.2); }
-          66% { transform: translate(15vw, -25vh) scale(0.8); }
-          100% { transform: translate(0, 0) scale(1); }
-        }
-        .cinematic-grain {
-          position: absolute;
-          top: 0; left: 0; right: 0; bottom: 0;
-          background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox=\"0 0 200 200\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cfilter id=\"noiseFilter\"%3E%3CfeTurbulence type=\"fractalNoise\" baseFrequency=\"0.9\" numOctaves=\"3\" stitchTiles=\"stitch\"/%3E%3C/filter%3E%3Crect width=\"100%25\" height=\"100%25\" filter=\"url(%23noiseFilter)\"/%3E%3C/svg%3E');
-          opacity: 0.05; mix-blend-mode: color-dodge; pointer-events: none; z-index: 1;
-        }
+        html, body, #root { margin: 0; padding: 0; background: #ffffff; width: 100%; height: 100%; overflow: hidden; }
         .peak-glass-btn {
-          position: relative; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1);
-          backdrop-filter: blur(16px); color: rgba(255, 255, 255, 0.9); font-weight: 500;
+          position: relative; background: rgba(0, 0, 0, 0.03); border: 1px solid rgba(0, 0, 0, 0.1);
+          backdrop-filter: blur(16px); color: rgba(0, 0, 0, 0.9); font-weight: 500;
           padding: 8px 16px; border-radius: 8px; cursor: pointer; transition: all 0.3s;
-          box-shadow: 0 4px 15px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255, 255, 255, 0.05); font-size: 11px; text-transform: uppercase;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.05); font-size: 11px; text-transform: uppercase;
         }
         .peak-glass-btn:hover {
-          background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.3); transform: translateY(-2px);
-          box-shadow: 0 8px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2); color: #fff;
+          background: rgba(0, 0, 0, 0.08); border-color: rgba(0, 0, 0, 0.2); transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0,0,0,0.1); color: #000;
         }
       `}</style>
-      <div style={{ position: "absolute", top: "20%", left: "30%", width: "60vw", height: "60vw", background: "radial-gradient(circle, rgba(147,51,234,0.1) 0%, rgba(0,0,0,0) 70%)", animation: "orbDrift1 25s ease-in-out infinite alternate", pointerEvents: "none", zIndex: 0 }} />
-      <div style={{ position: "absolute", bottom: "-10%", right: "-10%", width: "50vw", height: "50vw", background: "radial-gradient(circle, rgba(236,72,153,0.08) 0%, rgba(0,0,0,0) 70%)", animation: "orbDrift2 30s ease-in-out infinite alternate", pointerEvents: "none", zIndex: 0 }} />
-      <div className="cinematic-grain" />
 
       {/* ══ HEADER ══════════════════════════════════════════════════════════ */}
-      <header style={{ height: 60, flexShrink: 0, background: "rgba(10, 10, 12, 0.6)", backdropFilter: "blur(24px) saturate(180%)", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 30px", borderBottom: "1px solid rgba(255, 255, 255, 0.08)", zIndex: 10, boxShadow: "0 4px 30px rgba(0, 0, 0, 0.3)" }}>
+      <header style={{ height: 60, flexShrink: 0, background: "rgba(255, 255, 255, 0.9)", backdropFilter: "blur(24px) saturate(180%)", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 30px", borderBottom: "1px solid rgba(0, 0, 0, 0.08)", zIndex: 10, boxShadow: "0 4px 15px rgba(0, 0, 0, 0.05)" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-          <div onClick={() => onNavigate("addfile")} style={{ display: "flex", alignItems: "center", cursor: "pointer", marginRight: "8px", color: "rgba(255,255,255,0.7)", transition: "color 0.2s" }} onMouseEnter={e => e.currentTarget.style.color="white"} onMouseLeave={e => e.currentTarget.style.color="rgba(255,255,255,0.7)"}>
+          <div onClick={() => onNavigate("addfile")} style={{ display: "flex", alignItems: "center", cursor: "pointer", marginRight: "8px", color: "rgba(0,0,0,0.6)", transition: "color 0.2s" }} onMouseEnter={e => e.currentTarget.style.color="black"} onMouseLeave={e => e.currentTarget.style.color="rgba(0,0,0,0.6)"}>
              <ArrowLeft size={24} />
           </div>
           <div onClick={() => onNavigate("addfile")} style={{ display: "flex", alignItems: "center", cursor: "pointer" }}>
-            <div style={{ width: 34, height: 34, borderRadius: 10, background: "linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.02))", border: "1px solid rgba(255,255,255,0.3)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: 18, color: "#fff", boxShadow: "0 0 15px rgba(255,255,255,0.2), inset 0 1px 0 rgba(255,255,255,0.6)", textShadow: "0 0 10px rgba(255,255,255,0.6)" }}>D</div>
-            <span style={{ fontWeight: 900, fontSize: 18, letterSpacing: "0.25em", textTransform: "uppercase", background: "linear-gradient(to bottom, #ffffff 30%, #555555 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 8px rgba(255,255,255,0.4))", marginLeft: 8 }}>DOOMSDAY</span>
+            <div style={{ width: 34, height: 34, borderRadius: 10, background: "linear-gradient(135deg, rgba(0,0,0,0.05), rgba(0,0,0,0.01))", border: "1px solid rgba(0,0,0,0.1)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: 18, color: "#111", boxShadow: "0 0 10px rgba(0,0,0,0.05)" }}>D</div>
+            <span style={{ fontWeight: 900, fontSize: 18, letterSpacing: "0.25em", textTransform: "uppercase", background: "linear-gradient(to bottom, #111 30%, #666 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", marginLeft: 8 }}>DOOMSDAY</span>
           </div>
-          <span style={{ color: "rgba(255,255,255,0.2)", margin: "0 8px" }}>|</span>
-          <span style={{ fontWeight: 500, fontSize: 11, letterSpacing: "0.15em", color: "rgba(255,255,255,0.5)" }}>NETWORK GRAPH</span>
+          <span style={{ color: "rgba(0,0,0,0.2)", margin: "0 8px" }}>|</span>
+          <span style={{ fontWeight: 500, fontSize: 11, letterSpacing: "0.15em", color: "rgba(0,0,0,0.5)" }}>NETWORK GRAPH</span>
           <div style={{ display: "flex", gap: 6, marginLeft: 16 }}>
-            <div style={{ background: "#7f1d1d", border: "1px solid #ef4444", borderRadius: 6, padding: "3px 9px", display: "flex", alignItems: "center", gap: 5 }}>
-              <span style={{ fontSize: 9, color: "#ef4444" }}>⚠</span>
-              <span style={{ fontSize: 9, fontWeight: 700, color: "#fca5a5" }}>{totalFlags} SUSPICIOUS</span>
+            <div style={{ background: "#fef2f2", border: "1px solid #fecaca", borderRadius: 6, padding: "3px 9px", display: "flex", alignItems: "center", gap: 5 }}>
+              <span style={{ fontSize: 9, color: "#dc2626" }}>⚠</span>
+              <span style={{ fontSize: 9, fontWeight: 700, color: "#dc2626" }}>{totalFlags} SUSPICIOUS</span>
             </div>
-            <div style={{ background: "#1c1917", border: "1px solid #f97316", borderRadius: 6, padding: "3px 9px", display: "flex", alignItems: "center", gap: 5 }}>
-              <span style={{ fontSize: 9, color: "#f97316" }}>◉</span>
-              <span style={{ fontSize: 9, fontWeight: 700, color: "#fdba74" }}>{totalRings} RINGS</span>
+            <div style={{ background: "#fff7ed", border: "1px solid #fed7aa", borderRadius: 6, padding: "3px 9px", display: "flex", alignItems: "center", gap: 5 }}>
+              <span style={{ fontSize: 9, color: "#ea580c" }}>◉</span>
+              <span style={{ fontSize: 9, fontWeight: 700, color: "#ea580c" }}>{totalRings} RINGS</span>
             </div>
           </div>
         </div>
         <div style={{ display: "flex", gap: 18, fontSize: 11, alignItems: "center" }}>
-          <span style={{ color: "#86efac" }}>NODES <b style={{ color: "white" }}>{nodes.length}</b></span>
-          <span style={{ color: "#86efac" }}>EDGES <b style={{ color: "white" }}>{edges.length}</b></span>
-          {selectedIds.size > 0 && <span style={{ color: "#4ade80", fontSize: 10 }}>{selectedIds.size} selected</span>}
-          {fileName && <span style={{ color: "#4ade80", fontSize: 10 }}>📄 {fileName}</span>}
+          <span style={{ color: "#15803d" }}>NODES <b style={{ color: "black" }}>{nodes.length}</b></span>
+          <span style={{ color: "#15803d" }}>EDGES <b style={{ color: "black" }}>{edges.length}</b></span>
+          {selectedIds.size > 0 && <span style={{ color: "#16a34a", fontSize: 10 }}>{selectedIds.size} selected</span>}
+          {fileName && <span style={{ color: "#16a34a", fontSize: 10 }}>📄 {fileName}</span>}
           <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
-            <div style={{ width: 7, height: 7, borderRadius: "50%", background: hasData ? "#4ade80" : "#166534", boxShadow: hasData ? "0 0 8px #4ade80" : "none" }} />
-            <span style={{ color: hasData ? "#4ade80" : "#166534", fontSize: 10 }}>{hasData ? "ACTIVE" : "IDLE"}</span>
+            <div style={{ width: 7, height: 7, borderRadius: "50%", background: hasData ? "#16a34a" : "#cbd5e1", boxShadow: hasData ? "0 0 8px rgba(22,163,74,0.4)" : "none" }} />
+            <span style={{ color: hasData ? "#16a34a" : "#94a3b8", fontSize: 10 }}>{hasData ? "ACTIVE" : "IDLE"}</span>
           </div>
           {fraudData && <button className="peak-glass-btn" onClick={downloadJSON}>Download JSON</button>}
           <button className="peak-glass-btn" onClick={() => onNavigate("details")}>Show Details</button>
-          <button className="peak-glass-btn" onClick={() => onNavigate("addfile")} style={{ background: "transparent", border: "1px solid rgba(255,255,255,0.2)" }}>Add File</button>
+          <button className="peak-glass-btn" onClick={() => onNavigate("addfile")} style={{ background: "transparent", border: "1px solid rgba(0,0,0,0.1)" }}>Add File</button>
         </div>
       </header>
 
@@ -751,18 +730,18 @@ export default function GraphPage({ onNavigate, onSelectionChange }) {
       <div style={{ flex: 1, display: "flex", overflow: "hidden", position: "relative", zIndex: 10 }}>
 
         {/* ── LEFT SIDEBAR ─────────────────────────────────────────────── */}
-        <aside style={{ width: 280, flexShrink: 0, borderRight: "1px solid rgba(255,255,255,0.08)", background: "rgba(10, 10, 15, 0.4)", backdropFilter: "blur(20px)", display: "flex", flexDirection: "column", overflow: "hidden" }}>
+        <aside style={{ width: 280, flexShrink: 0, borderRight: "1px solid rgba(0,0,0,0.08)", background: "rgba(255, 255, 255, 0.9)", backdropFilter: "blur(20px)", display: "flex", flexDirection: "column", overflow: "hidden" }}>
 
           {/* Upload zone */}
-          <div style={{ padding: 20, borderBottom: "1px solid rgba(255,255,255,0.08)", flexShrink: 0 }}>
+          <div style={{ padding: 20, borderBottom: "1px solid rgba(0,0,0,0.08)", flexShrink: 0 }}>
             <p style={{ fontSize: 9, letterSpacing: "0.18em", color: "#15803d", marginBottom: 9, textTransform: "uppercase" }}>Data Source</p>
             <div
               onClick={() => fileRef.current?.click()}
               onDrop={e => { e.preventDefault(); const f = e.dataTransfer.files?.[0]; if (f) loadCSV(f); }}
               onDragOver={e => e.preventDefault()}
               onMouseEnter={e => { e.currentTarget.style.borderColor = "#16a34a"; e.currentTarget.style.background = "#dcfce7"; }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = "#86efac"; e.currentTarget.style.background = "white"; }}
-              style={{ border: "2px dashed #86efac", borderRadius: 10, padding: "14px 10px", textAlign: "center", cursor: "pointer", background: "white", transition: "all 0.15s" }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = "#86efac"; e.currentTarget.style.background = "#f8fafc"; }}
+              style={{ border: "2px dashed #86efac", borderRadius: 10, padding: "14px 10px", textAlign: "center", cursor: "pointer", background: "#f8fafc", transition: "all 0.15s" }}
             >
               <div style={{ fontSize: 22, marginBottom: 4 }}>⬆</div>
               <p style={{ fontSize: 10, color: "#15803d", lineHeight: 1.5 }}>{loading ? "Parsing…" : "Drop CSV or click"}</p>
@@ -839,7 +818,7 @@ export default function GraphPage({ onNavigate, onSelectionChange }) {
 
         {/* ── CANVAS ───────────────────────────────────────────────────── */}
         <main ref={wrapperRef} style={{ flex: 1, position: "relative", overflow: "hidden", background: "transparent" }}>
-          <div style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
+          <div style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "radial-gradient(rgba(0,0,0,0.08) 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
 
           {/* Zoom controls */}
           {hasData && (
@@ -850,13 +829,13 @@ export default function GraphPage({ onNavigate, onSelectionChange }) {
                 { label: "⊙", title: "Reset view", fn: resetZoom },
               ].map(({ label, title, fn }) => (
                 <button key={label} title={title} onClick={fn}
-                  style={{ width: 32, height: 32, background: "#14532d", border: "1px solid #166534", borderRadius: 8, color: "#4ade80", fontSize: label === "⊙" ? 14 : 18, fontFamily: "monospace", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 2px 8px rgba(0,0,0,0.15)", transition: "background 0.1s" }}
-                  onMouseEnter={e => e.currentTarget.style.background = "#166534"}
-                  onMouseLeave={e => e.currentTarget.style.background = "#14532d"}
+                  style={{ width: 32, height: 32, background: "white", border: "1px solid #e2e8f0", borderRadius: 8, color: "#16a34a", fontSize: label === "⊙" ? 14 : 18, fontFamily: "monospace", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 2px 8px rgba(0,0,0,0.05)", transition: "background 0.1s" }}
+                  onMouseEnter={e => e.currentTarget.style.background = "#f1f5f9"}
+                  onMouseLeave={e => e.currentTarget.style.background = "white"}
                 >{label}</button>
               ))}
-              <div style={{ background: "#14532d", border: "1px solid #166534", borderRadius: 6, padding: "4px 0", textAlign: "center" }}>
-                <span style={{ fontSize: 8, color: "#4ade80", fontFamily: "monospace" }}>{Math.round(zoom * 100)}%</span>
+              <div style={{ background: "white", border: "1px solid #e2e8f0", borderRadius: 6, padding: "4px 0", textAlign: "center" }}>
+                <span style={{ fontSize: 8, color: "#16a34a", fontFamily: "monospace" }}>{Math.round(zoom * 100)}%</span>
               </div>
             </div>
           )}
@@ -872,8 +851,8 @@ export default function GraphPage({ onNavigate, onSelectionChange }) {
 
           {!hasData && !loading && (
             <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 10, pointerEvents: "none" }}>
-              <div style={{ fontSize: 60, opacity: 0.08 }}>◎</div>
-              <p style={{ fontSize: 12, color: "#bbf7d0", letterSpacing: "0.18em" }}>UPLOAD A CSV TO START</p>
+              <div style={{ fontSize: 60, opacity: 0.1 }}>◎</div>
+              <p style={{ fontSize: 12, color: "#64748b", letterSpacing: "0.18em" }}>UPLOAD A CSV TO START</p>
             </div>
           )}
           {loading && (
