@@ -5,27 +5,17 @@
 
 ---
 
-## 🔗 Quick Links
 
-| Resource | Link |
-|---|---|
-| 🌐 Live Demo | [https://dist-self-nu.vercel.app/] |
-| 🎥 LinkedIn Demo Video | [Watch on LinkedIn]([(https://www.linkedin.com/posts/basant-bansal-22066036b_rifthackathon-rift26-moneymulingdetection-ugcPost-7430409965955289089-6lMN?utm_source=social_share_send&utm_medium=android_app&rcm=ACoAAFvBXzgBZWci7CZeyTmkA4t2HGKdBg0G2uw&utm_campaign=copy_link)] |
-| 📁 GitHub Repository | [https://github.com/Surajshivam-123/RIFT.git] |
-
-> **Hashtags:** `#RIFTHackathon` `#MoneyMulingDetection` `#FinancialCrime` `#GraphTheory` `#RIFT2026`
-
----
 
 
 ## 👥 Team Members
 
 | Name | GitHub |
 |---|---|
-| Suraj Kumar | [@Surajshivam-123](https://github.com/Surajshivam-123) |
-| Ram Kumar | [@RamK2006](https://github.com/RamK2006) |
-| Madan Ram Sai Vuppala | [@__Madan-Ram-sai__](https://github.com/__Madan-Ram-sai__) |
-| Basant Bansal | [@__basantbansal__](https://github.com/__basantbansal__) |
+| Sarvesh Dharmadhikari | [@Sarvesh2747](https://github.com/Sarvesh2747) |
+| Divyesh Ravane | [@dvdgamer2003](https://github.com/dvdgamer2003) |
+| Aditya Sutar | [@Siuuutar](https://github.com/siuuutar) |
+| Pratham Patil| [@Pratham Patil](https://github.com/Parzival-afk) |
 
 ---
 
