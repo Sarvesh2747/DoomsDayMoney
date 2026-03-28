@@ -19,6 +19,9 @@ const jasonImages = [
   "https://www.rockstargames.com/VI/_next/image?url=%2FVI%2F_next%2Fstatic%2Fmedia%2FJason_Duval_06.e498e308.jpg&w=1920&q=75"
 ];
 
+// Track if the cinematic has finished in the current session (resets on refresh)
+let hasPlayedDoomsday = false;
+
 export default function HomePage({ onNavigate }) {
   const [showAgeGate, setShowAgeGate] = useState(() => {
     return localStorage.getItem("doomsday_age_verified") !== "true";
@@ -67,6 +70,19 @@ function ScrubImage({
 
 function MainContent({ onNavigate }) {
   const containerRef = useRef(null);
+  const heroVideoRef = useRef(null);
+
+  // If the intro has already played earlier in this session, jump to the final frame
+  useLayoutEffect(() => {
+    if (hasPlayedDoomsday && heroVideoRef.current) {
+      // Jumping to a high value ensures it stays on the last frame
+      heroVideoRef.current.currentTime = 999;
+    }
+  }, []);
+
+  const handleVideoEnded = () => {
+    hasPlayedDoomsday = true;
+  };
 
   // useLayoutEffect runs BEFORE paint — framer-motion reads scroll AFTER this runs
   // This guarantees scrollYProgress starts at 0, not the previous page's scroll position
@@ -158,12 +174,7 @@ function MainContent({ onNavigate }) {
         <div className="text-3xl font-black tracking-widest text-white cursor-pointer hover:text-[#ffb8e0] transition-colors drop-shadow-lg" onClick={() => onNavigate('home')}>
           R★
         </div>
-        <div className="hidden md:flex gap-10 text-xs font-bold tracking-[0.2em] uppercase text-white/90 pt-2">
-          <a href="#" onClick={(e) => { e.preventDefault(); onNavigate('addfile'); }} className="hover:text-white transition-colors drop-shadow-md cursor-pointer pointer-events-auto">Analysis</a>
-          <a href="#" className="hover:text-white transition-colors drop-shadow-md">Networks</a>
-          <a href="#" className="hover:text-white transition-colors drop-shadow-md">Data</a>
-          <a href="#" className="hover:text-white transition-colors drop-shadow-md">Support</a>
-        </div>
+
         <button onClick={() => onNavigate('addfile')} className="px-6 py-3 bg-yellow-400 text-black text-[10px] font-black uppercase tracking-widest rounded-sm hover:bg-yellow-300 transition-colors shadow-[0_0_20px_rgba(250,204,21,0.4)] pointer-events-auto cursor-pointer">
           Analyze Now
         </button>
@@ -178,10 +189,13 @@ function MainContent({ onNavigate }) {
           className="absolute inset-0 w-full h-full"
           style={{ scale: heroScale, y: heroY }}
         >
-          {/* Parallax Layer 1: Background Docks */}
-          <img 
-            src="https://www.rockstargames.com/VI/_next/image?url=%2FVI%2F_next%2Fstatic%2Fmedia%2FHero_BG.d0b73d7a.jpg&w=1920&q=100" 
-            alt="Hero Background" 
+          {/* Parallax Layer 1: Video Background */}
+          <video 
+            ref={heroVideoRef}
+            autoPlay={!hasPlayedDoomsday}
+            onEnded={handleVideoEnded}
+            muted playsInline
+            src="/DoomsDay.mp4" 
             className="absolute inset-0 w-full h-full object-cover pointer-events-none z-0"
           />
           
@@ -191,13 +205,6 @@ function MainContent({ onNavigate }) {
                 DOOMSDAY
              </h1>
           </div>
-
-          {/* Parallax Layer 3: Characters */}
-          <img 
-            src="https://www.rockstargames.com/VI/_next/image?url=%2FVI%2F_next%2Fstatic%2Fmedia%2FHero_FG.3b6c0e26.png&w=1920&q=100" 
-            alt="Hero Characters Foreground" 
-            className="absolute inset-0 w-full h-full object-cover pointer-events-none z-20"
-          />
 
           <div className="absolute inset-0 bg-gradient-to-t from-[#0f0c1b] via-transparent to-transparent pointer-events-none z-30" />
           
